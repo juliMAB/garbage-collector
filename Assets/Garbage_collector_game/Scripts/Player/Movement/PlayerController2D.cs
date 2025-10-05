@@ -13,8 +13,7 @@ public class PlayerController2D : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
-    private void OnEnable()
+    private void Start()
     {
         if (moveAction == null)
         {
@@ -38,9 +37,13 @@ public class PlayerController2D : MonoBehaviour
             composite.With("Left", "<Keyboard>/leftArrow");
             composite.With("Right", "<Keyboard>/d");
             composite.With("Right", "<Keyboard>/rightArrow");
+            moveAction.Enable();
         }
+    }
 
-        moveAction.Enable();
+    private void OnEnable()
+    {
+        moveAction?.Enable();
     }
 
     private void OnDisable()
