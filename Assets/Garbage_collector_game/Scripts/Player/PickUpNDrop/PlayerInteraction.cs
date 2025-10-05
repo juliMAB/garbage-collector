@@ -4,14 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
     [Header("Configuraci�n")]
-    [SerializeField] private string pickableLayerName = "pikapeableObjet";
     [SerializeField] private Transform itemHolder; // Punto donde se colocar� el objeto al recogerlo
 
     [Header("Estado")]
     [SerializeField] private GameObject nearbyPickable; // Objeto detectado en el trigger
     [SerializeField] private GameObject heldItem;       // Objeto actualmente recogido
-
-    private int pickableLayer = -1;
 
     // Input
     private InputAction interactAction;
@@ -19,13 +16,11 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject NearbyPickable => nearbyPickable;
     public GameObject HeldItem => heldItem;
 
+    private  AudioSource audioSource;
+
     private void Awake()
     {
-        pickableLayer = LayerMask.NameToLayer(pickableLayerName);
-        if (pickableLayer == -1)
-        {
-            Debug.LogWarning($"La capa \"{pickableLayerName}\" no existe. Crea la capa en Project Settings > Tags and Layers y as�gnala a los objetos recogibles.");
-        }
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -75,7 +70,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (heldItem == null)
         {
-            TryPickUp();
+            if (TryPickUp()) audioSource.Play();
         }
         else
         {

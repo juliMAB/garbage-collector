@@ -9,6 +9,7 @@ public class TrashDropArea : MonoBehaviour
     {
         if (InGameAllReferences.Instance.IsPickable(other.gameObject))
         {
+            Destroy(other.gameObject);
             onTrashDropped?.Invoke();
         }
     }
