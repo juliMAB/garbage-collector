@@ -70,7 +70,17 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (heldItem == null)
         {
-            if (TryPickUp()) audioSource.Play();
+            if (TryPickUp())
+            {
+                if(heldItem.TryGetComponent<TrashObject>(out TrashObject trash))
+                {
+                    if (trash.IsTutorial)
+                    {
+                        Destroy(trash.transform.GetChild(0));
+                    }
+                }
+                audioSource.Play();
+            }
         }
         else
         {

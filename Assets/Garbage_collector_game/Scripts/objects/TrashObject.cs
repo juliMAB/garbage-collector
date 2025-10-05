@@ -7,6 +7,8 @@ public class TrashObject : MonoBehaviour
 
     public static System.Action OnCallOnDestroy;
 
+    public bool IsTutorial = false;
+
     private void Awake()
     {
         if (trashitems == null)
