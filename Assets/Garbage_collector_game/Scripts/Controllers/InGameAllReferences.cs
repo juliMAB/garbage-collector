@@ -12,6 +12,12 @@ public class InGameAllReferences : MonoBehaviour
     public static InGameAllReferences Instance;
 
     private int pickableLayer = -1;
+    [SerializeField] private GameObject player = null;
+    [SerializeField] private GameObject ExitArea = null;
+    public bool IsPlayer(GameObject other)
+    {
+        return player == other;
+    }
 
     private void Awake()
     {
@@ -47,5 +53,14 @@ public class InGameAllReferences : MonoBehaviour
         if (pickupItemsPrefabs.Count == 0) return null;
         int randomIndex = Random.Range(0, pickupItemsPrefabs.Count);
         return pickupItemsPrefabs[randomIndex];
+    }
+
+    public void StartLevel()
+    {
+        ExitArea.SetActive(false);
+    }
+    public void EndLevel()
+    {
+        ExitArea.SetActive(true);
     }
 }
