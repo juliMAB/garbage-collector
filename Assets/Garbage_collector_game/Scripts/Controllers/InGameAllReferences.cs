@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InGameAllReferences : MonoBehaviour
 {
     [Header("Configuración")]
     [SerializeField] private string pickableLayerName = "pikapeableObjet";
+    [SerializeField] private List<GameObject> pickupItemsPrefabs;
 
     static InGameAllReferences _instance;
 
@@ -23,7 +25,6 @@ public class InGameAllReferences : MonoBehaviour
             {
                 _instance = this;
                 Instance = this;
-                DontDestroyOnLoad(this.gameObject);
             }
         }
 
@@ -39,5 +40,12 @@ public class InGameAllReferences : MonoBehaviour
     public bool IsPickable(GameObject go)
     {
         return pickableLayer != -1 && go.layer == pickableLayer;
+    }
+
+    public GameObject GetRandomPickupItemPrefab()
+    {
+        if (pickupItemsPrefabs.Count == 0) return null;
+        int randomIndex = Random.Range(0, pickupItemsPrefabs.Count);
+        return pickupItemsPrefabs[randomIndex];
     }
 }

@@ -76,7 +76,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     if (trash.IsTutorial)
                     {
-                        Destroy(trash.transform.GetChild(0));
+                        Destroy(trash.transform.GetChild(0).gameObject);
                     }
                 }
                 audioSource.Play();
